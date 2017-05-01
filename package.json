@@ -1,0 +1,27 @@
+
+{
+  "name": "react-native-event-bridge",
+  "version": "0.5.0",
+  "description": "Send and Receive events between React Native and native.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maicki/react-native-event-bridge.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "android",
+    "ios",
+    "windows"
+  ],
+  "nativePackage": true,
+  "author": {
+    "name": "Michael Schneider",
+    "email": "mischneider1@gmail.com"
+  },
+  "license": "Apache 2.0",
+  "readmeFilename": "README.md"
+}
