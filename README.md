@@ -104,7 +104,7 @@ public void onEvent(final String name, final ReadableMap info) {
 import EventBridge from 'react-native-event-bridge';
 
 componentDidMount() {
-  // Register for an event that will be sent from the native side
+  // Register for any kind of event that will be sent from the native side
   this._eventSubscription = EventBridge.addEventListener(this, (name, info) => {
     console.log("Received event from native: '" + name + "' with info: " + JSON.stringify(info));
   });
@@ -113,6 +113,35 @@ componentDidMount() {
 componentWillUnmount() {
   this._eventSubscription && this._eventSubscription.remove();
 }
+```
+
+### Sending events from native
+
+#### iOS
+```objc
+//...
+// Get the RCTBridge
+RCTBridge *bridge = ...;
+
+// Send an event with name 'eventName' to listeners for this event within the React Native component hierarchy
+// of that is managed by this view
+[bridge.viewControllerEventEmitter emitEventForView:self.view name:@"eventName" info:@{
+  @"rowSelected" : info[@"rowID"]
+}];
+/...
+```
+
+#### Android
+```java
+// Get the MSREventBridgeInstanceManagerProvider somehow
+MSREventBridgeInstanceManagerProvider instanceManagerProvider =
+        (MSREventBridgeInstanceManagerProvider)this.getApplicationContext();
+
+// Emit event via MSREventBridgeModule
+String rowID = ...;
+WritableMap map = new WritableNativeMap();
+map.putString("rowSelected", rowID);
+MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
 ```
 
 ### Example fetching data
