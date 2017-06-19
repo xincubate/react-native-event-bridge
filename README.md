@@ -44,7 +44,7 @@ Core APIs are subject to change. We encourage people to try this library out and
 
 ## Usage
 
-For different usage examples look into the example folder.
+For different usage examples look into the example and example-swift folder.
 
 ### Emit events from React Native
 
@@ -65,7 +65,14 @@ EventBridge.emitEventCallback(this, 'EventWithCallback', () => {
 
 #### iOS:
 ```objc
-// Implemented by a UIViewController subclass
+// Receiver needs to conform to the MSREventBridgeEventReceiver protocol
+@interface ViewController () <MSREventBridgeEventReceiver>
+// ...
+@end
+
+// Implement the following two methods by receiver that conforms to MSREventBridgeEventReceiver
+
+// Handle events
 - (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info
 {
   // Handle events dispatched from React Native
@@ -77,6 +84,12 @@ EventBridge.emitEventCallback(this, 'EventWithCallback', () => {
     [self presentViewController:newViewController animated:YES completion:nil];
     return;
   }
+  // ...
+}
+
+// Handle events with callback
+- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info callback:(nullable RCTResponseSenderBlock)callback;
+{
   // ...
 }
 ```
@@ -101,8 +114,15 @@ public void onEvent(final String name, final ReadableMap info) {
 
 #### JavaScript
 ```javascript
+// Import EventBridge from the react-native-event-bridge native module
 import EventBridge from 'react-native-event-bridge';
 
+// Event listener need to define a rootTag contextType
+static contextTypes = {
+  rootTag: React.PropTypes.number,
+};
+
+// Add and remove as event listener
 componentDidMount() {
   // Register for any kind of event that will be sent from the native side
   this._eventSubscription = EventBridge.addEventListener(this, (name, info) => {

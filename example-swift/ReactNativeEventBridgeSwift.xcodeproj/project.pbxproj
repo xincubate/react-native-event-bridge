@@ -1,0 +1,374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		697DC9A31EF5AE4400184F9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697DC9A21EF5AE4400184F9B /* AppDelegate.swift */; };
+		697DC9A51EF5AE4400184F9B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697DC9A41EF5AE4400184F9B /* ViewController.swift */; };
+		697DC9AA1EF5AE4400184F9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 697DC9A91EF5AE4400184F9B /* Assets.xcassets */; };
+		697DC9AD1EF5AE4400184F9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 697DC9AB1EF5AE4400184F9B /* LaunchScreen.storyboard */; };
+		B1B899318A9036C5037F171E /* Pods_ReactNativeEventBridgeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DD955D92EFFBDABA4617595 /* Pods_ReactNativeEventBridgeSwift.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		43FF17CFEAE7883A2FF8723E /* Pods-ReactNativeEventBridgeSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeEventBridgeSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReactNativeEventBridgeSwift/Pods-ReactNativeEventBridgeSwift.debug.xcconfig"; sourceTree = "<group>"; };
+		697DC99F1EF5AE4400184F9B /* ReactNativeEventBridgeSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactNativeEventBridgeSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		697DC9A21EF5AE4400184F9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		697DC9A41EF5AE4400184F9B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		697DC9A91EF5AE4400184F9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		697DC9AC1EF5AE4400184F9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		697DC9AE1EF5AE4400184F9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		855A9CD1F30322C17CE7C075 /* Pods-ReactNativeEventBridgeSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeEventBridgeSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReactNativeEventBridgeSwift/Pods-ReactNativeEventBridgeSwift.release.xcconfig"; sourceTree = "<group>"; };
+		8DD955D92EFFBDABA4617595 /* Pods_ReactNativeEventBridgeSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReactNativeEventBridgeSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		697DC99C1EF5AE4400184F9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1B899318A9036C5037F171E /* Pods_ReactNativeEventBridgeSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		190063AF422303A59664B68B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				43FF17CFEAE7883A2FF8723E /* Pods-ReactNativeEventBridgeSwift.debug.xcconfig */,
+				855A9CD1F30322C17CE7C075 /* Pods-ReactNativeEventBridgeSwift.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		697DC9961EF5AE4400184F9B = {
+			isa = PBXGroup;
+			children = (
+				697DC9A11EF5AE4400184F9B /* ReactNativeEventBridgeSwift */,
+				697DC9A01EF5AE4400184F9B /* Products */,
+				190063AF422303A59664B68B /* Pods */,
+				6AA85A049E55664CA764A065 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		697DC9A01EF5AE4400184F9B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				697DC99F1EF5AE4400184F9B /* ReactNativeEventBridgeSwift.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		697DC9A11EF5AE4400184F9B /* ReactNativeEventBridgeSwift */ = {
+			isa = PBXGroup;
+			children = (
+				697DC9A21EF5AE4400184F9B /* AppDelegate.swift */,
+				697DC9A41EF5AE4400184F9B /* ViewController.swift */,
+				697DC9A91EF5AE4400184F9B /* Assets.xcassets */,
+				697DC9AB1EF5AE4400184F9B /* LaunchScreen.storyboard */,
+				697DC9AE1EF5AE4400184F9B /* Info.plist */,
+			);
+			path = ReactNativeEventBridgeSwift;
+			sourceTree = "<group>";
+		};
+		6AA85A049E55664CA764A065 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8DD955D92EFFBDABA4617595 /* Pods_ReactNativeEventBridgeSwift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		697DC99E1EF5AE4400184F9B /* ReactNativeEventBridgeSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 697DC9B11EF5AE4400184F9B /* Build configuration list for PBXNativeTarget "ReactNativeEventBridgeSwift" */;
+			buildPhases = (
+				33311B787B00B93842ED2146 /* [CP] Check Pods Manifest.lock */,
+				697DC99B1EF5AE4400184F9B /* Sources */,
+				697DC99C1EF5AE4400184F9B /* Frameworks */,
+				697DC99D1EF5AE4400184F9B /* Resources */,
+				348FC8B88F37A17F603C0303 /* [CP] Embed Pods Frameworks */,
+				2B5725AF26229810127F265C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReactNativeEventBridgeSwift;
+			productName = ReactNativeEventBridgeSwift;
+			productReference = 697DC99F1EF5AE4400184F9B /* ReactNativeEventBridgeSwift.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		697DC9971EF5AE4400184F9B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = mischneider;
+				TargetAttributes = {
+					697DC99E1EF5AE4400184F9B = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 697DC99A1EF5AE4400184F9B /* Build configuration list for PBXProject "ReactNativeEventBridgeSwift" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 697DC9961EF5AE4400184F9B;
+			productRefGroup = 697DC9A01EF5AE4400184F9B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				697DC99E1EF5AE4400184F9B /* ReactNativeEventBridgeSwift */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		697DC99D1EF5AE4400184F9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				697DC9AD1EF5AE4400184F9B /* LaunchScreen.storyboard in Resources */,
+				697DC9AA1EF5AE4400184F9B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2B5725AF26229810127F265C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReactNativeEventBridgeSwift/Pods-ReactNativeEventBridgeSwift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		33311B787B00B93842ED2146 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		348FC8B88F37A17F603C0303 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReactNativeEventBridgeSwift/Pods-ReactNativeEventBridgeSwift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		697DC99B1EF5AE4400184F9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				697DC9A51EF5AE4400184F9B /* ViewController.swift in Sources */,
+				697DC9A31EF5AE4400184F9B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		697DC9AB1EF5AE4400184F9B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				697DC9AC1EF5AE4400184F9B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		697DC9AF1EF5AE4400184F9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		697DC9B01EF5AE4400184F9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		697DC9B21EF5AE4400184F9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43FF17CFEAE7883A2FF8723E /* Pods-ReactNativeEventBridgeSwift.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ReactNativeEventBridgeSwift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.mischneider.ReactNativeEventBridgeSwift;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		697DC9B31EF5AE4400184F9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 855A9CD1F30322C17CE7C075 /* Pods-ReactNativeEventBridgeSwift.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ReactNativeEventBridgeSwift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.mischneider.ReactNativeEventBridgeSwift;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		697DC99A1EF5AE4400184F9B /* Build configuration list for PBXProject "ReactNativeEventBridgeSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				697DC9AF1EF5AE4400184F9B /* Debug */,
+				697DC9B01EF5AE4400184F9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		697DC9B11EF5AE4400184F9B /* Build configuration list for PBXNativeTarget "ReactNativeEventBridgeSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				697DC9B21EF5AE4400184F9B /* Debug */,
+				697DC9B31EF5AE4400184F9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 697DC9971EF5AE4400184F9B /* Project object */;
+}
