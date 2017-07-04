@@ -116,6 +116,8 @@
 #pragma mark -
 #pragma mark - ViewController
 
+static NSString * const LearnMoreEvent = @"LearnMore";
+static NSString * const LearnMoreEventCallback = @"EventWithCallback";
 static NSString * const PresentScreenEvent = @"PresentScreen";
 static NSString * const DismissScreenEvent = @"DismissScreen";
 static NSString * const LoadDataEvent = @"LoadData";
@@ -156,8 +158,25 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
 
 #pragma mark - <MSREventBridgeEventReceiver>
 
+- (NSArray *)supportedEvents
+{
+  static NSArray *supportedEvents = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    supportedEvents = @[
+      PresentScreenEvent,
+      DismissScreenEvent,
+      DidSelectRowEvent,
+      LearnMoreEvent,
+      LearnMoreEventCallback,
+      LoadDataEvent
+    ];
+  });
+  return supportedEvents;
+}
+
 // Callback from the JS side. One subview from the root node did send an event
-- (void)onEventWithName:(NSString *)eventName info:(NSDictionary *)info
+- (BOOL)onEventWithName:(NSString *)eventName info:(NSDictionary *)info
 {
   RCTLog(@"%@ - Received event: '%@', with info: %@", self.UUID.UUIDString, eventName, info);
 
@@ -167,13 +186,13 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
   if ([eventName isEqualToString:PresentScreenEvent] ) {
     ViewController *newViewController = [ViewController new];
     [self presentViewController:newViewController animated:YES completion:nil];
-    return;
+    return YES;
   }
 
   // Example for DismissScreen event
   if ([eventName isEqualToString:DismissScreenEvent]) {
     [self dismissViewControllerAnimated:YES completion:nil];
-    return;
+    return YES;
   }
 
   // Example for DidSelectRow event
@@ -185,7 +204,7 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
     [self.viewControllerEventEmitter emitEventForView:self.view name:@"eventName" info:@{
       @"rowSelected" : info[@"rowID"]
     }];
-    return;
+    return YES;
   }
 
   // After receiving an event send some event back with name `eventName`.
@@ -193,9 +212,11 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
     @"UUID" : _UUID.UUIDString,
     @"data" : @"data"
   }];
+  
+  return YES;
 }
 
-- (void)onEventWithName:(NSString *)eventName info:(NSDictionary *)info callback:(MSREventBridgeEventReceiverCallback)callback;
+- (BOOL)onEventWithName:(NSString *)eventName info:(NSDictionary *)info callback:(MSREventBridgeEventReceiverCallback)callback;
 {
   RCTLog(@"%@ - Received event that expects callback: '%@', with info: %@", self.UUID.UUIDString, eventName, info);
 
@@ -218,13 +239,16 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
       }
       
     });
-    return;
+    return YES;
   }
 
   // No special handling in this case just execute the callback for now
   if (callback) {
     callback(nil, nil);
+    return YES;
   }
+  
+  return NO;
 }
 
 @end
