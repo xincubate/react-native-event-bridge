@@ -13,7 +13,7 @@ import com.facebook.react.bridge.ReadableMap;
 import net.mischneider.MSREventBridgeEventReceiver;
 
 /**
- * A {@link ReactRootView} that implements the {@link MSREventBridgeEventReceiver}.
+ * A ReactRootView that implements the {@link MSREventBridgeEventReceiver}.
  */
 public class MSREventBridgeAwareReactRootView extends ReactRootView implements MSREventBridgeEventReceiver{
 

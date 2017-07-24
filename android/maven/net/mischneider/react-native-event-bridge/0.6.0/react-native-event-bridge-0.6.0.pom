@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.mischneider</groupId>
+  <artifactId>react-native-event-bridge</artifactId>
+  <version>0.6.0</version>
+  <packaging>aar</packaging>
+  <name>React Native Event Bridge</name>
+  <description>Send and Receive events between React Native and native.</description>
+  <url>https://github.com/maicki/react-native-event-bridge</url>
+  <licenses>
+    <license>
+      <name>Apache 2.0</name>
+      <url>https://github.com/maicki/react-native-event-bridge/blob/master/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>mischneider</id>
+      <name>Michael Schneider</name>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/maicki/react-native-event-bridge.git</connection>
+    <developerConnection>scm:git:git@github.com/maicki/react-native-event-bridge.git</developerConnection>
+    <url>https://github.com/maicki/react-native-event-bridge.git</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>com.facebook.react</groupId>
+      <artifactId>react-native</artifactId>
+      <version>+</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>
