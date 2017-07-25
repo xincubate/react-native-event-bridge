@@ -8,7 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maicki/react-native-event-bridge.git"
+    "url": "git+https://github.com/maicki/react-native-event-bridge.git",
+    "baseUrl": "https://github.com/maicki/react-native-event-bridge"
   },
   "keywords": [
     "react-native",
@@ -23,5 +24,6 @@
     "email": "mischneider1@gmail.com"
   },
   "license": "Apache 2.0",
+  "licenseFilename": "LICENSE",
   "readmeFilename": "README.md"
 }

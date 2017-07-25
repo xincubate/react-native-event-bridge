@@ -39,24 +39,20 @@ dependencies {
 }
 
 def configureReactNativePom(def pom) {
+    def packageJson = new groovy.json.JsonSlurper().parseText(file('../package.json').text)
+
     pom.project {
         name "React Native Event Bridge"
-        artifactId "react-native-event-bridge"
-        version = "0.6.0"
+        artifactId packageJson.name
+        version = packageJson.version
         group = "net.mischneider"
-        description 'Send and Receive events between React Native and native.'
-        url 'https://github.com/maicki/react-native-event-bridge'
-
-        scm {
-            url 'https://github.com/maicki/react-native-event-bridge.git'
-            connection 'scm:git:https://github.com/maicki/react-native-event-bridge.git'
-            developerConnection 'scm:git:git@github.com/maicki/react-native-event-bridge.git'
-        }
+        description packageJson.description
+        url packageJson.repository.baseUrl
 
         licenses {
             license {
-                name 'Apache 2.0'
-                url 'https://github.com/maicki/react-native-event-bridge/blob/master/LICENSE'
+                name packageJson.license
+                url packageJson.repository.baseUrl + '/blob/master/' + packageJson.licenseFilename
                 distribution 'repo'
             }
         }
@@ -64,7 +60,7 @@ def configureReactNativePom(def pom) {
         developers {
             developer {
                 id 'mischneider'
-                name 'Michael Schneider'
+                name packageJson.author.name
             }
         }
     }

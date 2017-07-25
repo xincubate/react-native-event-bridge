@@ -22,11 +22,6 @@
       <name>Michael Schneider</name>
     </developer>
   </developers>
-  <scm>
-    <connection>scm:git:https://github.com/maicki/react-native-event-bridge.git</connection>
-    <developerConnection>scm:git:git@github.com/maicki/react-native-event-bridge.git</developerConnection>
-    <url>https://github.com/maicki/react-native-event-bridge.git</url>
-  </scm>
   <dependencies>
     <dependency>
       <groupId>com.facebook.react</groupId>
