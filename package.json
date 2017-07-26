@@ -1,9 +1,12 @@
-
 {
   "name": "react-native-event-bridge",
   "version": "0.6.0",
   "description": "Send and Receive events between React Native and native.",
   "scripts": {
+    "eslint": "eslint . --ext js",
+    "flow": "flow",
+    "lint": "npm run eslint",
+    "prettier": "find . -name \"*.js\" -not -path \"*/node_modules/*\" -not -path \"*/example/*\" -not -path \"*/example-swift/*\" | xargs prettier --single-quote --trailing-comma es5 --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,5 +28,22 @@
   },
   "license": "Apache 2.0",
   "licenseFilename": "LICENSE",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.3.1",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-prettier": "^2.1.1",
+    "eslint-plugin-import": "^2.5.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-prefer-object-spread": "^1.2.1",
+    "eslint-plugin-flowtype": "^2.34.0",
+    "eslint-plugin-prettier": "^2.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "flow-bin": "^0.48",
+    "prettier": "^1.4.4",
+    "invariant": "^2.2.2",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.46.2"
+  }
 }

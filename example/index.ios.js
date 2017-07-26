@@ -4,5 +4,6 @@
  */
 
 import { AppRegistry } from 'react-native';
-import App from './app.js';
+import App from './app';
+
 AppRegistry.registerComponent('EventBridgeExample', () => App);

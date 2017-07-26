@@ -9,6 +9,7 @@ target 'ReactNativeEventBridgeSwift' do
   pod 'Yoga', :path => './ReactNativeEventBridgeSwift/ReactNative/node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
   pod 'React', path: './ReactNativeEventBridgeSwift/ReactNative/node_modules/react-native', :subspecs => [
     'Core',
+    'BatchedBridge',
     'RCTImage',
     'RCTNetwork',
     'RCTText',

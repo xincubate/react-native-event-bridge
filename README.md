@@ -245,6 +245,15 @@ public void onEventCallback(final String name, final ReadableMap info, final Cal
 }
 ```
 
+### Development / Example
+
+1. In one terminal session, run `$ cd example && npm run-script sync-rneb`. This will
+ make changes that you make to the module available to the example app, in
+ a way that will trigger the Example app’s ‘packager’ to reload those files.
+2. In another terminal session, run `$ cd example && react-native run-ios`. This will start the
+ ‘packager’ for the example app, which serves the processed JS source to the
+ Example app.
+
 ## TODO:
 - API refinements
 - Improve documentation

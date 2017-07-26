@@ -3,24 +3,23 @@
  * @flow
  */
 
- // Native Event Bridge
- // Wrapper around sending and receieving events that are related to components
- // and view hierarchy of a root view
+// Native Event Bridge
+// Wrapper around sending and receieving events that are related to components
+// and view hierarchy of a root view
 
-import React, { Component } from 'react';
+import React from 'react';
 import {
   findNodeHandle,
   NativeModules,
   NativeEventEmitter,
-  EmitterSubscription
+  EmitterSubscription,
 } from 'react-native';
+import invariant from 'invariant';
 
 import enhanceForEventsSupport, {
   enhanceForEventsSupportDecorator,
-  enhanceForEventsSupportEnhanced
-} from './react-native-event-bridge-enhance.js';
-
-import invariant from 'invariant';
+  enhanceForEventsSupportEnhanced,
+} from './react-native-event-bridge-enhance';
 
 const { MSREventBridge } = NativeModules;
 
@@ -29,24 +28,33 @@ const { MSREventBridge } = NativeModules;
 // view / view controller or activity
 
 // Emit an event to the native side
-const emitEvent = (component: React.Component<any, any, any>, eventName: string, info: any) => {
+const emitEvent = (
+  component: React.Component<any, any, any>,
+  eventName: string,
+  info: any
+) => {
   let reactTag;
   try {
     reactTag = findNodeHandle(component);
   } catch (err) {
-    return
+    return;
   }
 
   MSREventBridge.onEvent(reactTag, eventName, info);
-}
+};
 
 // Emit an event to the native side and expect a callback
-const emitEventCallback = (component: React.Component<any, any, any>, eventName: string, info: any, callback: (Array<any>) => void) => {
+const emitEventCallback = (
+  component: React.Component<any, any, any>,
+  eventName: string,
+  info: any,
+  callback: (Array<any>) => void
+): void => {
   let reactTag;
   try {
     reactTag = findNodeHandle(component);
   } catch (err) {
-    return
+    return;
   }
 
   MSREventBridge.onEventCallback(reactTag, eventName, info, callback);
@@ -54,23 +62,29 @@ const emitEventCallback = (component: React.Component<any, any, any>, eventName:
 
 // Event emitter to be able to emit events from the JavaScript side to native
 const MSREventBridgeEventEmitter = new NativeEventEmitter(MSREventBridge);
-const addEventListener = (component: React.Component<any, any, any>, callback: (any) => void): EmitterSubscription => {
+const addEventListener = (
+  component: React.Component<any, any, any>,
+  callback: (string, any) => void
+): EmitterSubscription => {
   // Every component that would like to receive an event to native needs to have
   // a rootTag in it's context otherwise it would not be possible to identify
   // to which callback the event should be dispatched
   const componentReactTag = component.context.rootTag;
-  invariant(componentReactTag != null, 'If you would like receive events you have to define the reactTag in your contexts. Component: %s', component.constructor.name);
+  invariant(
+    componentReactTag != null,
+    'If you would like receive events you have to define the reactTag in your contexts. Component: %s',
+    component.constructor.name
+  );
 
   return MSREventBridgeEventEmitter.addListener(
     MSREventBridge.EventName,
     (body: any) => {
-
       // Check if this event was directed to this subscritpion
       const eventReactTag = body[MSREventBridge.EventReactTagKey];
 
       // Check for react tag the same as the react tag passed in and dispatched to
       // this means it was from the root node
-      if (componentReactTag != eventReactTag) {
+      if (componentReactTag !== eventReactTag) {
         return;
       }
 
@@ -88,30 +102,44 @@ const EventBridge = {
   // Add a listener for events that are dispatched from the native side
   // It returns a EmitterSubscription you should store in your component and
   // remove the component will unmount
-  addEventListener: (component: React.Component<any, any, any>, callback: (any) => void): EmitterSubscription => {
-    return addEventListener(component, callback);
-  },
+  addEventListener: (
+    component: React.Component<any, any, any>,
+    callback: any => void
+  ): EmitterSubscription => addEventListener(component, callback),
 
   // Emit an event to the native side
-  emitEvent: (component: React.Component<any, any, any>, eventName: string, info: any) => {
+  emitEvent: (
+    component: React.Component<any, any, any>,
+    eventName: string,
+    info: any
+  ): void => {
     emitEvent(component, eventName, info);
   },
 
   // Emit an event to the native side and expect a callback
-  emitEventCallback: (component: React.Component<any, any, any>, eventName: string, callback: (Array<any>) => void) => {
+  emitEventCallback: (
+    component: React.Component<any, any, any>,
+    eventName: string,
+    callback: (Array<any>) => void
+  ): void => {
     emitEventCallback(component, eventName, null, callback);
   },
 
   // Emit an event to the native side and expect a callback
-  emitEventInfoCallback: (component: React.Component<any, any, any>, eventName: string, info: any, callback: (Array<any>) => void) => {
+  emitEventInfoCallback: (
+    component: React.Component<any, any, any>,
+    eventName: string,
+    info: any,
+    callback: (Array<any>) => void
+  ): void => {
     emitEventCallback(component, eventName, info, callback);
-  }
+  },
 };
 
 // Exports
 export default EventBridge;
 export {
-  enhanceForEventsSupport as enhanceForEventsSupport,
-  enhanceForEventsSupportEnhanced as enhanceForEventsSupportEnhanced,
-  enhanceForEventsSupportDecorator as enhanceForEventsSupportDecorator
+  enhanceForEventsSupport,
+  enhanceForEventsSupportEnhanced,
+  enhanceForEventsSupportDecorator,
 };
