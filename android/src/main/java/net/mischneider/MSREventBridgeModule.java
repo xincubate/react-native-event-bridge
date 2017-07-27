@@ -141,7 +141,7 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
         View view = nativeViewHierarchyManager.resolveView(rootTag);
         if (view instanceof MSREventBridgeEventReceiver) {
           MSREventBridgeEventReceiver receiver = (MSREventBridgeEventReceiver) view;
-          receiver.onEvent(name, info);
+          receiver.onEventCallback(name, info, callback);
           return;
         }
 
