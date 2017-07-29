@@ -12,9 +12,10 @@ import {
   findNodeHandle,
   NativeModules,
   NativeEventEmitter,
-  EmitterSubscription,
 } from 'react-native';
 import invariant from 'invariant';
+
+import type EmitterSubscription from 'EmitterSubscription';
 
 import enhanceForEventsSupport, {
   enhanceForEventsSupportDecorator,

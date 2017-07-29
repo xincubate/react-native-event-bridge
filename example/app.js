@@ -14,8 +14,9 @@ import {
   TouchableHighlight,
   ActivityIndicator,
   Alert,
-  EmitterSubscription,
 } from 'react-native'; // Would yell at us as we don't use it for now
+
+import type EmitterSubscription from 'EmitterSubscription';
 
 /* eslint-disable */ import EventBridge, {
   enhanceForEventsSupport,

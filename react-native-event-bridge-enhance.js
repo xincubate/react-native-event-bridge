@@ -9,7 +9,9 @@
 // if the listener is registered via the registerEventListener method.
 
 import React from 'react';
-import { EmitterSubscription } from 'react-native';
+
+import type EmitterSubscription from 'EmitterSubscription';
+
 import EventBridge from './index';
 
 const enhanceForEventsSupport = (ComposedComponent: React.Component<any>) => {
