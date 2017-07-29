@@ -256,10 +256,8 @@ public void onEventCallback(final String name, final ReadableMap info, final Cal
 
 ## TODO:
 - API refinements
-- Improve documentation
-- Publish to npm and CocoaPods
+- Improve general documentation
 - Improve documentation around "enhanced" features
-- Android: Fragment support
 
 ## License
 
