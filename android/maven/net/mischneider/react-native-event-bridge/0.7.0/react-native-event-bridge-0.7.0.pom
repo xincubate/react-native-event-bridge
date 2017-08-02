@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.mischneider</groupId>
   <artifactId>react-native-event-bridge</artifactId>
-  <version>0.6.0</version>
+  <version>0.7.0</version>
   <packaging>aar</packaging>
   <name>React Native Event Bridge</name>
   <description>Send and Receive events between React Native and native.</description>
