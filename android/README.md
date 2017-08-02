@@ -3,7 +3,6 @@ README
 
 Steps before publishing a new version to npm:
 
-- update the version in build.gradle under configureReactNativePom -> version
-- delete the `maven` folder
-- run `sudo ./gradlew installArchives`
-- verify that latest set of generated files is in the maven folder with the correct version number
+1. Delete the `maven` folder
+2. Run `sudo ./gradlew installArchives`
+3. Verify that latest set of generated files is in the maven folder with the correct version number
