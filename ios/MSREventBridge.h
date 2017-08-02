@@ -20,6 +20,8 @@
 #pragma mark -
 #pragma mark - Protocols
 
+#pragma mark MSREventBridgeEventEmitter
+
 /**
  * Emitter to send events to React Native
  */
@@ -38,6 +40,10 @@
 
 @end
 
+#pragma mark MSREventBridgeEventReceiver
+
+typedef void (^MSREventBridgeEventReceiverCallback)(NSError * _Nullable error, id _Nullable data);
+
 /**
  * Handler that receive events posted from a subcomponent. Usually this protocol is implemented by a
  * RTCRootView subclass or an UIViewController that has an RCTRootView as view.
@@ -54,7 +60,7 @@
 /**
  * Event received from React Native. The callback must be called.
  */
-- (void)onEventWithName:(NSString *)name info:(NSDictionary *)info callback:(RCTResponseSenderBlock)callback;
+- (void)onEventWithName:(NSString *)name info:(NSDictionary *)info callback:(MSREventBridgeEventReceiverCallback)callback;
 
 @end
 

@@ -16,6 +16,7 @@ import com.facebook.react.common.ReactConstants;
 import net.mischneider.MSREventBridgeEventReceiver;
 import net.mischneider.MSREventBridgeInstanceManagerProvider;
 import net.mischneider.MSREventBridgeModule;
+import net.mischneider.MSREventBridgeReceiverCallback;
 
 public class SecondActivity extends ReactActivity implements MSREventBridgeEventReceiver, MSREventBridgeInstanceManagerProvider {
 
@@ -78,7 +79,7 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
     }
 
     @Override
-    public void onEventCallback(final String name, final ReadableMap info, final Callback callback) {
+    public void onEventCallback(final String name, final ReadableMap info, final MSREventBridgeReceiverCallback callback) {
         Log.d(ReactConstants.TAG, this.getClass().getName() + ": Received event  with callback: ".concat(name));
 
         final String activityClassName = this.getClass().getSimpleName();
@@ -94,12 +95,12 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
                 public void run() {
                     WritableArray array = new WritableNativeArray();
                     for (int i = 0; i < count; i++) {
-                        // getSimepleName() does not work here for some reason
+                        // getSimpleName() does not work here for some reason
                         String className = this.getClass().getName();
                         array.pushString("Row " + i + " - " + activityClassName);
                     }
 
-                    callback.invoke(null, array); // First parameter is error and the second is data
+                    callback.onSuccess(array);
                 }
             }, 2000);
 
@@ -109,6 +110,6 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
         // Emit callback
         WritableMap map = new WritableNativeMap();
         map.putString("key", "value");
-        callback.invoke(null, map); // First param is error and second is data
+        callback.onSuccess(map);
     }
 }

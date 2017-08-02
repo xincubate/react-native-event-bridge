@@ -15,6 +15,7 @@ import com.facebook.react.common.ReactConstants;
 
 import net.mischneider.MSREventBridgeEventReceiver;
 import net.mischneider.MSREventBridgeInstanceManagerProvider;
+import net.mischneider.MSREventBridgeReceiverCallback;
 import net.mischneider.MSREventBridgeModule;
 
 public class MainActivity extends ReactActivity implements MSREventBridgeEventReceiver {
@@ -76,7 +77,7 @@ public class MainActivity extends ReactActivity implements MSREventBridgeEventRe
     }
 
     @Override
-    public void onEventCallback(final String name, final ReadableMap info, final Callback callback) {
+    public void onEventCallback(final String name, final ReadableMap info, final MSREventBridgeReceiverCallback callback) {
         Log.d(ReactConstants.TAG, this.getClass().getName() + ": Received event with callback: ".concat(name));
 
         final String activityClassName = this.getClass().getSimpleName();
@@ -94,8 +95,7 @@ public class MainActivity extends ReactActivity implements MSREventBridgeEventRe
                     for (int i = 0; i < count; i++) {
                         array.pushString("Row " + i + " - " + activityClassName);
                     }
-
-                    callback.invoke(null, array); // First parameter is error and the second is data
+                    callback.onSuccess(array);
                 }
             }, 2000);
 
@@ -105,6 +105,6 @@ public class MainActivity extends ReactActivity implements MSREventBridgeEventRe
         // Emit callback
         WritableMap map = new WritableNativeMap();
         map.putString("key", "value");
-        callback.invoke(null, map); // First param is error and second is data
+        callback.onSuccess(map);
     }
 }

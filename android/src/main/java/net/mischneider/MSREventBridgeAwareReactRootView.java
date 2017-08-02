@@ -7,15 +7,15 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 import com.facebook.react.ReactRootView;
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReadableMap;
 
 import net.mischneider.MSREventBridgeEventReceiver;
+import net.mischneider.MSREventBridgeReceiverCallback;
 
 /**
  * A ReactRootView that implements the {@link MSREventBridgeEventReceiver}.
  */
-public class MSREventBridgeAwareReactRootView extends ReactRootView implements MSREventBridgeEventReceiver{
+public class MSREventBridgeAwareReactRootView extends ReactRootView implements MSREventBridgeEventReceiver {
 
     private MSREventBridgeEventReceiver _eventBridgeEventReceiver;
 
@@ -47,7 +47,7 @@ public class MSREventBridgeAwareReactRootView extends ReactRootView implements M
     }
 
     @Override
-    public void onEventCallback(String name, ReadableMap info, Callback callback) {
+    public void onEventCallback(String name, ReadableMap info, MSREventBridgeReceiverCallback callback) {
         if (_eventBridgeEventReceiver == null) {
             return;
         }

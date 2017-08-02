@@ -24,6 +24,8 @@ import enhanceForEventsSupport, {
 
 const { MSREventBridge } = NativeModules;
 
+export type MSREventBridgeCallback = (error: ?any, data: ?any) => void;
+
 // The react tag of the component acts as identifier to native. The native
 // side will figure out the root view and dispatches it either to
 // view / view controller or activity
@@ -49,7 +51,7 @@ const emitEventCallback = (
   component: React.Component<any, any, any>,
   eventName: string,
   info: any,
-  callback: (Array<any>) => void
+  callback: MSREventBridgeCallback
 ): void => {
   let reactTag;
   try {
@@ -121,7 +123,7 @@ const EventBridge = {
   emitEventCallback: (
     component: React.Component<any, any, any>,
     eventName: string,
-    callback: (Array<any>) => void
+    callback: MSREventBridgeCallback
   ): void => {
     emitEventCallback(component, eventName, null, callback);
   },
@@ -131,7 +133,7 @@ const EventBridge = {
     component: React.Component<any, any, any>,
     eventName: string,
     info: any,
-    callback: (Array<any>) => void
+    callback: MSREventBridgeCallback
   ): void => {
     emitEventCallback(component, eventName, info, callback);
   },

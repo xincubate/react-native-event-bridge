@@ -16,5 +16,5 @@ public interface MSREventBridgeEventReceiver {
     /**
      * Event received from React Native. The callback must be called.
      */
-    void onEventCallback(String name, ReadableMap info, Callback callback);
+    void onEventCallback(String name, ReadableMap info, MSREventBridgeReceiverCallback callback);
 }

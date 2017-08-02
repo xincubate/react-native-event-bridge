@@ -57,13 +57,17 @@ RCT_EXPORT_METHOD(onEventCallback:(nonnull NSNumber *)reactTag name:(NSString *)
     // Check if root view can receive the event
     if ([rootView conformsToProtocol:@protocol(MSREventBridgeEventReceiver)]
         && [rootView respondsToSelector:@selector(onEventWithName:info:callback:)]) {
-      [(id<MSREventBridgeEventReceiver>)rootView onEventWithName:name info:info callback:callback];
+      [(id<MSREventBridgeEventReceiver>)rootView onEventWithName:name info:info callback:^(NSError *error, id data) {
+        callback(@[(error ?: [NSNull null]), (data ?: [NSNull null])]);
+      }];
     } else {
       // Check if the view controller of the root view can receive the event
       UIViewController *viewController = rootView.reactViewController;
       if ([viewController conformsToProtocol:@protocol(MSREventBridgeEventReceiver)]
           && [viewController respondsToSelector:@selector(onEventWithName:info:callback:)]) {
-        [(id<MSREventBridgeEventReceiver>)viewController onEventWithName:name info:info callback:callback];
+        [(id<MSREventBridgeEventReceiver>)viewController onEventWithName:name info:info callback:^(NSError *error, id data) {
+          callback(@[(error ?: [NSNull null]), (data ?: [NSNull null])]);
+        }];
       }
     }
   }];

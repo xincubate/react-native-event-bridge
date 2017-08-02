@@ -195,7 +195,7 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
   }];
 }
 
-- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info callback:(nullable RCTResponseSenderBlock)callback;
+- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info callback:(nullable MSREventBridgeEventReceiverCallback)callback;
 {
   RCTLog(@"%@ - Received event that expects callback: '%@', with info: %@", self.UUID.UUIDString, eventName, info);
 
@@ -214,7 +214,7 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
       
       // Call callback with some error as first parameter if so and second with respnse data
       if (callback) {
-        callback(@[[NSNull null], responseData]);
+        callback(nil, responseData);
       }
       
     });
@@ -223,7 +223,7 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
 
   // No special handling in this case just execute the callback for now
   if (callback) {
-    callback(@[]);
+    callback(nil, nil);
   }
 }
 

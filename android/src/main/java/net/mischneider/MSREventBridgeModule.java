@@ -139,17 +139,27 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
       @Override
       public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
         View view = nativeViewHierarchyManager.resolveView(rootTag);
+
+        MSREventBridgeEventReceiver receiver = null;
         if (view instanceof MSREventBridgeEventReceiver) {
-          MSREventBridgeEventReceiver receiver = (MSREventBridgeEventReceiver) view;
-          receiver.onEventCallback(name, info, callback);
+          receiver = (MSREventBridgeEventReceiver) view;
+        } else if (view.getContext() instanceof MSREventBridgeEventReceiver) {
+          receiver = (MSREventBridgeEventReceiver) view.getContext();
+        } else {
           return;
         }
 
-        Context context = view.getContext();
-        if (context instanceof MSREventBridgeEventReceiver) {
-          MSREventBridgeEventReceiver receiver = (MSREventBridgeEventReceiver)context;
-          receiver.onEventCallback(name, info, callback);
-        }
+        receiver.onEventCallback(name, info, new MSREventBridgeReceiverCallback() {
+          @Override
+          public void onSuccess(Object data) {
+            callback.invoke(null, data);
+          }
+
+          @Override
+          public void onFailure(Object data) {
+            callback.invoke(data, null);
+          }
+        });
       }
     });
   }
