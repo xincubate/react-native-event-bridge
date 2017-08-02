@@ -88,7 +88,7 @@ EventBridge.emitEventCallback(this, 'EventWithCallback', () => {
 }
 
 // Handle events with callback
-- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info callback:(nullable RCTResponseSenderBlock)callback;
+- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info callback:(MSREventBridgeReventReceiverCallback)callback;
 {
   // ...
 }
@@ -184,7 +184,7 @@ EventBridge.emitEventInfoCallback(this, 'LoadData', {'count' : 10}, (error, resu
 
 #### iOS
 ```objc
-- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info callback:(nullable RCTResponseSenderBlock)callback;
+- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info callback:(MSREventBridgeReventReceiverCallback)callback
 {
   RCTLog(@"%@ - Received event that expects callback: '%@', with info: %@", self.UUID.UUIDString, eventName, info);
 
@@ -201,9 +201,9 @@ EventBridge.emitEventInfoCallback(this, 'LoadData', {'count' : 10}, (error, resu
         [responseData addObject:[NSString stringWithFormat:@"row %i", i]];
       }
 
-      // Call callback with some error as first parameter if so and second with respnse data
+      // Call callback with some error as first parameter if so and second with response data
       if (callback) {
-        callback(@[[NSNull null], responseData]);
+        callback(nil, responseData);
       }
 
     });
@@ -216,7 +216,7 @@ EventBridge.emitEventInfoCallback(this, 'LoadData', {'count' : 10}, (error, resu
 #### Android
 ```java
 @Override
-public void onEventCallback(final String name, final ReadableMap info, final Callback callback) {
+public void onEventCallback(final String name, final ReadableMap info, final MSREventBridgeReceiverCallback callback) {
     Log.d(ReactConstants.TAG, this.getClass().getName() + ": Received event with callback: ".concat(name));
 
     final String activityClassName = this.getClass().getSimpleName();
@@ -235,7 +235,7 @@ public void onEventCallback(final String name, final ReadableMap info, final Cal
                     array.pushString("Row " + i + " - " + activityClassName);
                 }
 
-                callback.invoke(null, array); // First parameter is error and the second is data
+                callback.onSuccess(array);
             }
         }, 2000);
 
