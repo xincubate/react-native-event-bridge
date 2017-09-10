@@ -157,7 +157,7 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
 #pragma mark - <MSREventBridgeEventReceiver>
 
 // Callback from the JS side. One subview from the root node did send an event
-- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info
+- (void)onEventWithName:(NSString *)eventName info:(NSDictionary *)info
 {
   RCTLog(@"%@ - Received event: '%@', with info: %@", self.UUID.UUIDString, eventName, info);
 
@@ -195,7 +195,7 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
   }];
 }
 
-- (void)onEventWithName:(NSString *)eventName info:(nullable NSDictionary *)info callback:(nullable MSREventBridgeEventReceiverCallback)callback;
+- (void)onEventWithName:(NSString *)eventName info:(NSDictionary *)info callback:(MSREventBridgeEventReceiverCallback)callback;
 {
   RCTLog(@"%@ - Received event that expects callback: '%@', with info: %@", self.UUID.UUIDString, eventName, info);
 

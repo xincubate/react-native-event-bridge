@@ -33,7 +33,7 @@ RCT_EXPORT_MODULE();
 
 #pragma mark Receive Events
 
-RCT_EXPORT_METHOD(onEvent:(nonnull NSNumber *)reactTag name:(NSString *)name info:(NSDictionary *)info)
+RCT_EXPORT_METHOD(onEvent:(NSNumber *)reactTag name:(NSString *)name info:(NSDictionary *)info)
 {
   [self.bridge.uiManager rootViewForReactTag:reactTag withCompletion:^(UIView *rootView) {
     // Check if root view can receive the event
@@ -51,7 +51,7 @@ RCT_EXPORT_METHOD(onEvent:(nonnull NSNumber *)reactTag name:(NSString *)name inf
   }];
 }
 
-RCT_EXPORT_METHOD(onEventCallback:(nonnull NSNumber *)reactTag name:(NSString *)name info:(NSDictionary *)info callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(onEventCallback:(NSNumber *)reactTag name:(NSString *)name info:(NSDictionary *)info callback:(RCTResponseSenderBlock)callback)
 {
   [self.bridge.uiManager rootViewForReactTag:reactTag withCompletion:^(UIView *rootView) {
     // Check if root view can receive the event

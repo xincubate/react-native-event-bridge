@@ -14,6 +14,8 @@
 #import <React/RCTEventEmitter.h>
 #endif
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class RCTBridge;
 @class RCTRootView;
 
@@ -55,12 +57,12 @@ typedef void (^MSREventBridgeEventReceiverCallback)(NSError * _Nullable error, i
 /**
  * Event received from React Native
  */
-- (void)onEventWithName:(NSString *)name info:(NSDictionary *)info;
+- (void)onEventWithName:(NSString *)name info:(nullable NSDictionary *)info;
 
 /**
  * Event received from React Native. The callback must be called.
  */
-- (void)onEventWithName:(NSString *)name info:(NSDictionary *)info callback:(MSREventBridgeEventReceiverCallback)callback;
+- (void)onEventWithName:(NSString *)name info:(nullable  NSDictionary *)info callback:(nullable MSREventBridgeEventReceiverCallback)callback;
 
 @end
 
@@ -85,3 +87,5 @@ typedef void (^MSREventBridgeEventReceiverCallback)(NSError * _Nullable error, i
 @property (nonatomic, readonly) id<MSREventBridgeEventEmitter> viewControllerEventEmitter;
 
 @end
+
+NS_ASSUME_NONNULL_END
