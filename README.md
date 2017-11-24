@@ -114,12 +114,15 @@ public void onEvent(final String name, final ReadableMap info) {
 
 #### JavaScript
 ```javascript
+// Import PropTypes for contextTypes
+import PropTypes from 'prop-types';
+
 // Import EventBridge from the react-native-event-bridge native module
 import EventBridge from 'react-native-event-bridge';
 
-// Event listener need to define a rootTag contextType
+// Event listener need to define a rootTag contextType.
 static contextTypes = {
-  rootTag: React.PropTypes.number,
+  rootTag: PropTypes.number,
 };
 
 // Add and remove as event listener
