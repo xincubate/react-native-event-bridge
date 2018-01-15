@@ -65,6 +65,9 @@ EventBridge.emitEventCallback(this, 'EventWithCallback', () => {
 
 #### iOS:
 ```objc
+
+#import "MSREventBridge.h"
+
 // Receiver needs to conform to the MSREventBridgeEventReceiver protocol
 @interface ViewController () <MSREventBridgeEventReceiver>
 // ...
@@ -95,18 +98,40 @@ EventBridge.emitEventCallback(this, 'EventWithCallback', () => {
 ```
 
 #### Android:
-```java
-@Override
-public void onEvent(final String name, final ReadableMap info) {
-    Log.d(ReactConstants.TAG, this.getClass().getName() + ": Received event: ".concat(name));
 
-    // Example to just present a new activity
-    if (name.equals(PresentScreenEventName)) {
-        Intent myIntent = new Intent(getBaseContext(), SecondActivity.class);
-        startActivity(myIntent);
-        return;
-    }
+```java
+
+import net.mischneider.MSREventBridgeEventReceiver;
+import net.mischneider.MSREventBridgeReceiverCallback;
+
+// Receiver needs to implement MSREventBridgeEventReceiver e.g.
+public class MainActivity extends ReactActivity implements MSREventBridgeEventReceiver {
+  // ...
+
+  // Implement the following two methods by receiver that conforms to MSREventBridgeEventReceiver
+
+  // Handle events
+  @Override
+  public void onEvent(final String name, final ReadableMap info) {
+      Log.d(ReactConstants.TAG, this.getClass().getName() + ": Received event: ".concat(name));
+
+      // Example to just present a new activity
+      if (name.equals(PresentScreenEventName)) {
+          Intent myIntent = new Intent(getBaseContext(), SecondActivity.class);
+          startActivity(myIntent);
+          return;
+      }
+      // ...
+  }
+
+  // Handle events with callback
+  @Override
+  public void onEventCallback(final String name, final ReadableMap info, final MSREventBridgeReceiverCallback callback) {
+    // Handle event with callback
     // ...
+  }
+  
+  // ...
 }
 ```
 
