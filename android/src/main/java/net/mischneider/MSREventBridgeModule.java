@@ -208,14 +208,10 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
    */
   public void emitEventForActivity(Activity activity, final String name, @Nullable WritableMap info)  {
     // Get the root view
-    View view = activity.findViewById(android.R.id.content);
-    ViewGroup viewGroup = (ViewGroup)view;
-    for (int i = 0; i < viewGroup.getChildCount(); i++) {
-      View child = viewGroup.getChildAt(i);
-      if (child instanceof RootView) {
-        view = child;
-        break;
-      }
+    ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+    View view = findRootView(contentView);
+    if (!(view instanceof RootView) {
+      return;
     }
 
     // React tag is the identifier to be able to detect in ReactNativewhich component should receive
@@ -245,6 +241,25 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
             .getEventBridgeReactInstanceManager()
             .getCurrentReactContext()
             .getNativeModule(MSREventBridgeModule.class);
+  }
+
+  /**
+   * Returns the descendant of the given view which is the root of the React Native views
+   */
+  @Nullable
+  private View findRootView(ViewGroup parent) {
+    for (int i = 0; i < parent.getChildCount(); i++) {
+      View child = parent.getChildAt(i);
+      if (child instanceof RootView) {
+        return child;
+      } else if (child instanceof ViewGroup) {
+        child = findRootView((ViewGroup) child);
+        if (child != null) {
+          return child;
+        }
+      }
+    }
+    return null;
   }
 
 }
