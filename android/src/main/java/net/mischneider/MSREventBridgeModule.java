@@ -210,7 +210,7 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
     // Get the root view
     ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
     View view = findRootView(contentView);
-    if (!(view instanceof RootView) {
+    if (!(view instanceof RootView)) {
       return;
     }
 
