@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.AssertionException;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
@@ -43,6 +44,8 @@ import java.util.Map;
  * Module that handles receiving and sending events from and to React Native
  */
 public class MSREventBridgeModule extends ReactContextBaseJavaModule implements MSREventBridgeEventEmitter {
+
+  public static final String TAG = "MSREventBridgeModule";
 
   // Static Identifier for events that are sent to React Native. These needs to be in sync with iOS!
   private static final String EventBridgeModuleName = "MSREventBridge";
@@ -125,11 +128,16 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
 
         List<String> supportedEvents = receiver.supportedEvents();
         if (!supportedEvents.contains(name)) {
+          if (BuildConfig.DEBUG) {
+            Log.d(TAG, String.format("%s is not a supported event type for %s. Supported events are: `%s`", name, receiver.getClass().getName(), supportedEvents.toString()));
+          }
           return;
         }
 
         boolean eventHandled = receiver.onEvent(name, info);
-        // TODO: Throw an assertion if eventHandled == false
+        if (BuildConfig.DEBUG && !eventHandled) {
+          throw new AssertionException(String.format("Event supported but not handled: <name: %s, info:%s>", name, info.toString()));
+        }
       }
     });
   }
@@ -155,9 +163,11 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
           return;
         }
 
-
         List<String> supportedEvents = receiver.supportedEvents();
         if (!supportedEvents.contains(name)) {
+          if (BuildConfig.DEBUG) {
+            Log.d(TAG, String.format("%s is not a supported event type for %s. Supported events are: `%s`", name, receiver.getClass().getName(), supportedEvents.toString()));
+          }
           return;
         }
 
@@ -172,7 +182,10 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
             callback.invoke(data, null);
           }
         });
-        // TODO: Throw an assertion if eventHandled == false
+
+        if (BuildConfig.DEBUG && !eventHandled) {
+          throw new AssertionException(String.format("Event supported but not handled: <name: %s, info:%s>", name, info.toString()));
+        }
       }
     });
   }
