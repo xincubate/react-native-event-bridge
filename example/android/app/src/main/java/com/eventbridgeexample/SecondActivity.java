@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactInstanceManager;
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
@@ -17,6 +16,9 @@ import net.mischneider.MSREventBridgeEventReceiver;
 import net.mischneider.MSREventBridgeInstanceManagerProvider;
 import net.mischneider.MSREventBridgeModule;
 import net.mischneider.MSREventBridgeReceiverCallback;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class SecondActivity extends ReactActivity implements MSREventBridgeEventReceiver, MSREventBridgeInstanceManagerProvider {
 
@@ -41,12 +43,25 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
      * EventBridgeEventReceiver
      */
 
+    final static String LearnMoreEventName = "LearnMore";
+    final static String EventWithCallbackEventName = "EventWithCallback";
     final static String LoadDataEventName = "LoadData";
     final static String DidSelectRowEventName = "DidSelectRow";
     final static String DismissScreenEventName = "DismissScreen";
 
     @Override
-    public void onEvent(final String name, final ReadableMap info) {
+    public List<String> supportedEvents() {
+        return Arrays.asList(
+                LearnMoreEventName,
+                EventWithCallbackEventName,
+                LoadDataEventName,
+                DidSelectRowEventName,
+                DismissScreenEventName
+        );
+    }
+
+    @Override
+    public boolean onEvent(final String name, final ReadableMap info) {
         Log.d(ReactConstants.TAG, this.getClass().getName() + ": Received event: ".concat(name));
 
         MSREventBridgeInstanceManagerProvider instanceManagerProvider =
@@ -63,23 +78,24 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
             WritableMap map = new WritableNativeMap();
             map.putString("rowSelected", ""+rowID);
             MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
-            return;
+            return true;
         }
 
         // Handle dismiss screen event
         else if (name.equals(DismissScreenEventName)) {
             finish();
-            return;
+            return true;
         }
 
         // Emit callback event
         WritableMap map = new WritableNativeMap();
         map.putString("eventName", name);
         MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
+        return true;
     }
 
     @Override
-    public void onEventCallback(final String name, final ReadableMap info, final MSREventBridgeReceiverCallback callback) {
+    public boolean onEventCallback(final String name, final ReadableMap info, final MSREventBridgeReceiverCallback callback) {
         Log.d(ReactConstants.TAG, this.getClass().getName() + ": Received event  with callback: ".concat(name));
 
         final String activityClassName = this.getClass().getSimpleName();
@@ -104,12 +120,13 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
                 }
             }, 2000);
 
-            return;
+            return true;
         }
 
         // Emit callback
         WritableMap map = new WritableNativeMap();
         map.putString("key", "value");
         callback.onSuccess(map);
+        return true;
     }
 }

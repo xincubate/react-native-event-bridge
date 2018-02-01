@@ -9,8 +9,8 @@ import android.util.AttributeSet;
 import com.facebook.react.ReactRootView;
 import com.facebook.react.bridge.ReadableMap;
 
-import net.mischneider.MSREventBridgeEventReceiver;
-import net.mischneider.MSREventBridgeReceiverCallback;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A ReactRootView that implements the {@link MSREventBridgeEventReceiver}.
@@ -39,18 +39,26 @@ public class MSREventBridgeAwareReactRootView extends ReactRootView implements M
     }
 
     @Override
-    public void onEvent(String name, ReadableMap info) {
+    public List<String> supportedEvents() {
         if (_eventBridgeEventReceiver == null) {
-            return;
+            return new ArrayList<>();
         }
-        _eventBridgeEventReceiver.onEvent(name, info);
+        return _eventBridgeEventReceiver.supportedEvents();
     }
 
     @Override
-    public void onEventCallback(String name, ReadableMap info, MSREventBridgeReceiverCallback callback) {
+    public boolean onEvent(String name, ReadableMap info) {
         if (_eventBridgeEventReceiver == null) {
-            return;
+            return false;
         }
-        _eventBridgeEventReceiver.onEventCallback(name, info, callback);
+        return _eventBridgeEventReceiver.onEvent(name, info);
+    }
+
+    @Override
+    public boolean onEventCallback(String name, ReadableMap info, MSREventBridgeReceiverCallback callback) {
+        if (_eventBridgeEventReceiver == null) {
+            return false;
+        }
+        return _eventBridgeEventReceiver.onEventCallback(name, info, callback);
     }
 }

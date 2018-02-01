@@ -113,17 +113,23 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
       @Override
       public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
         View view = nativeViewHierarchyManager.resolveView(rootTag);
+
+        MSREventBridgeEventReceiver receiver = null;
         if (view instanceof MSREventBridgeEventReceiver) {
-          MSREventBridgeEventReceiver receiver = (MSREventBridgeEventReceiver) view;
-          receiver.onEvent(name, info);
+          receiver = (MSREventBridgeEventReceiver) view;
+        } else if (view.getContext() instanceof MSREventBridgeEventReceiver) {
+          receiver = (MSREventBridgeEventReceiver)view.getContext();
+        } else {
           return;
         }
 
-        Context context = view.getContext();
-        if (context instanceof MSREventBridgeEventReceiver) {
-          MSREventBridgeEventReceiver receiver = (MSREventBridgeEventReceiver)context;
-          receiver.onEvent(name, info);
+        List<String> supportedEvents = receiver.supportedEvents();
+        if (!supportedEvents.contains(name)) {
+          return;
         }
+
+        boolean eventHandled = receiver.onEvent(name, info);
+        // TODO: Throw an assertion if eventHandled == false
       }
     });
   }
@@ -149,7 +155,13 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
           return;
         }
 
-        receiver.onEventCallback(name, info, new MSREventBridgeReceiverCallback() {
+
+        List<String> supportedEvents = receiver.supportedEvents();
+        if (!supportedEvents.contains(name)) {
+          return;
+        }
+
+        boolean eventHandled = receiver.onEventCallback(name, info, new MSREventBridgeReceiverCallback() {
           @Override
           public void onSuccess(Object data) {
             callback.invoke(null, data);
@@ -160,6 +172,7 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
             callback.invoke(data, null);
           }
         });
+        // TODO: Throw an assertion if eventHandled == false
       }
     });
   }
