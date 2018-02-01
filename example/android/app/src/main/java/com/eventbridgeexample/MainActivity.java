@@ -73,24 +73,29 @@ public class MainActivity extends ReactActivity implements MSREventBridgeEventRe
             return true;
         }
 
-        // Example to just present a new activity
-        if (name.equals(PresentScreenEventName)) {
+        // Handle presenting a new activity
+        else if (name.equals(PresentScreenEventName)) {
             Intent myIntent = new Intent(getBaseContext(), SecondActivity.class);
             startActivity(myIntent);
             return true;
         }
 
         // Handle dismiss a screen
-        if (name.equals(DismissScreenEventName)) {
+        else if (name.equals(DismissScreenEventName)) {
             finish();
             return true;
         }
 
-        // Emit callback event
-        WritableMap map = new WritableNativeMap();
-        map.putString("eventName", name);
-        MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
-        return true;
+        // Handle Learn More
+        else if (name.equals(LearnMoreEventName)) {
+            // Emit callback event
+            WritableMap map = new WritableNativeMap();
+            map.putString("eventName", name);
+            MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -119,10 +124,15 @@ public class MainActivity extends ReactActivity implements MSREventBridgeEventRe
             return true;
         }
 
-        // Emit callback
-        WritableMap map = new WritableNativeMap();
-        map.putString("key", "value");
-        callback.onSuccess(map);
-        return true;
+        // Handle an event with callback
+        else if (name.equals(EventWithCallbackEventName)) {
+            // Emit callback
+            WritableMap map = new WritableNativeMap();
+            map.putString("key", "value");
+            callback.onSuccess(map);
+            return true;
+        }
+
+        return false;
     }
 }
