@@ -54,7 +54,7 @@ typedef void (^MSREventBridgeEventReceiverCallback)(NSError * _Nullable error, i
 /**
  * Return an array of supported events.
  */
-- (NSArray *)supportedEvents;
+- (NSArray<NSString *> *)supportedEvents;
 
 @optional
 

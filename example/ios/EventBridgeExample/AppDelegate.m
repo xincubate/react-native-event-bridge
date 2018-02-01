@@ -158,7 +158,7 @@ static NSString * const DidSelectRowEvent = @"DidSelectRow";
 
 #pragma mark - <MSREventBridgeEventReceiver>
 
-- (NSArray *)supportedEvents
+- (NSArray<NSString *> *)supportedEvents
 {
   static NSArray *supportedEvents = nil;
   static dispatch_once_t onceToken;
