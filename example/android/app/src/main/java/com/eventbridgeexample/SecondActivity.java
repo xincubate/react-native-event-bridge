@@ -78,12 +78,14 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
             WritableMap map = new WritableNativeMap();
             map.putString("rowSelected", ""+rowID);
             MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
+
             return true;
         }
 
         // Handle dismiss screen event
         else if (name.equals(DismissScreenEventName)) {
             finish();
+
             return true;
         }
         else if (name.equals(LearnMoreEventName)) {
@@ -92,6 +94,7 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
             WritableMap map = new WritableNativeMap();
             map.putString("eventName", name);
             MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
+
             return true;
         }
 
@@ -133,6 +136,7 @@ public class SecondActivity extends ReactActivity implements MSREventBridgeEvent
             WritableMap map = new WritableNativeMap();
             map.putString("key", "value");
             callback.onSuccess(map);
+
             return true;
         }
 

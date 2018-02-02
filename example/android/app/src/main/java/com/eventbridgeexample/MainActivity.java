@@ -70,6 +70,7 @@ public class MainActivity extends ReactActivity implements MSREventBridgeEventRe
             WritableMap map = new WritableNativeMap();
             map.putString("rowSelected", ""+rowID);
             MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
+
             return true;
         }
 
@@ -77,24 +78,27 @@ public class MainActivity extends ReactActivity implements MSREventBridgeEventRe
         else if (name.equals(PresentScreenEventName)) {
             Intent myIntent = new Intent(getBaseContext(), SecondActivity.class);
             startActivity(myIntent);
+
             return true;
         }
 
         // Handle dismiss a screen
         else if (name.equals(DismissScreenEventName)) {
             finish();
+
             return true;
         }
 
         // Handle Learn More
         else if (name.equals(LearnMoreEventName)) {
-            // Emit callback event
             WritableMap map = new WritableNativeMap();
             map.putString("eventName", name);
             MSREventBridgeModule.emitEventForActivity(this, instanceManagerProvider, "eventName", map);
+
             return true;
         }
 
+        // In this case we don't handle the event
         return false;
     }
 
@@ -126,13 +130,13 @@ public class MainActivity extends ReactActivity implements MSREventBridgeEventRe
 
         // Handle an event with callback
         else if (name.equals(EventWithCallbackEventName)) {
-            // Emit callback
             WritableMap map = new WritableNativeMap();
             map.putString("key", "value");
             callback.onSuccess(map);
             return true;
         }
 
+        // In this case we don't handle the event
         return false;
     }
 }
