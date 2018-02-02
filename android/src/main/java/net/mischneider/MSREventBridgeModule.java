@@ -117,27 +117,17 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
       public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
         View view = nativeViewHierarchyManager.resolveView(rootTag);
 
-        MSREventBridgeEventReceiver receiver = null;
-        if (view instanceof MSREventBridgeEventReceiver) {
-          receiver = (MSREventBridgeEventReceiver) view;
-        } else if (view.getContext() instanceof MSREventBridgeEventReceiver) {
-          receiver = (MSREventBridgeEventReceiver)view.getContext();
-        } else {
+        MSREventBridgeEventReceiver receiver = eventReceiverForView(view);
+        if (receiver == null) {
           return;
         }
 
-        List<String> supportedEvents = receiver.supportedEvents();
-        if (!supportedEvents.contains(name)) {
-          if (BuildConfig.DEBUG) {
-            Log.d(TAG, String.format("%s is not a supported event type for %s. Supported events are: `%s`", name, receiver.getClass().getName(), supportedEvents.toString()));
-          }
+        if (!receiverSupportsEventWithName(receiver, name)) {
           return;
         }
 
         boolean eventHandled = receiver.onEvent(name, info);
-        if (BuildConfig.DEBUG && !eventHandled) {
-          throw new AssertionException(String.format("Event supported but not handled: <name: %s, info:%s>", name, info.toString()));
-        }
+        handleReceiverEventHandledResponse(eventHandled, name, info);
       }
     });
   }
@@ -154,20 +144,12 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
       public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
         View view = nativeViewHierarchyManager.resolveView(rootTag);
 
-        MSREventBridgeEventReceiver receiver = null;
-        if (view instanceof MSREventBridgeEventReceiver) {
-          receiver = (MSREventBridgeEventReceiver) view;
-        } else if (view.getContext() instanceof MSREventBridgeEventReceiver) {
-          receiver = (MSREventBridgeEventReceiver) view.getContext();
-        } else {
+        MSREventBridgeEventReceiver receiver = eventReceiverForView(view);
+        if (receiver == null) {
           return;
         }
 
-        List<String> supportedEvents = receiver.supportedEvents();
-        if (!supportedEvents.contains(name)) {
-          if (BuildConfig.DEBUG) {
-            Log.d(TAG, String.format("%s is not a supported event type for %s. Supported events are: `%s`", name, receiver.getClass().getName(), supportedEvents.toString()));
-          }
+        if (!receiverSupportsEventWithName(receiver, name)) {
           return;
         }
 
@@ -182,12 +164,40 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
             callback.invoke(data, null);
           }
         });
-
-        if (BuildConfig.DEBUG && !eventHandled) {
-          throw new AssertionException(String.format("Event supported but not handled: <name: %s, info:%s>", name, info.toString()));
-        }
+        handleReceiverEventHandledResponse(eventHandled, name, info);
       }
     });
+  }
+
+  @Nullable
+  private MSREventBridgeEventReceiver eventReceiverForView(final View view) {
+    if (view instanceof MSREventBridgeEventReceiver) {
+      return (MSREventBridgeEventReceiver) view;
+    } else if (view.getContext() instanceof MSREventBridgeEventReceiver) {
+      return (MSREventBridgeEventReceiver) view.getContext();
+    } else {
+      return null;
+    }
+  }
+
+  private boolean receiverSupportsEventWithName(final MSREventBridgeEventReceiver receiver, final String name) {
+    List<String> supportedEvents = receiver.supportedEvents();
+    if (!supportedEvents.contains(name)) {
+      if (BuildConfig.DEBUG) {
+        Log.d(TAG, String.format("%s is not a supported event type for %s. Supported events are: `%s`", name, receiver.getClass().getName(), supportedEvents.toString()));
+      }
+      return false;
+    }
+
+    return true;
+  }
+
+  private void handleReceiverEventHandledResponse(boolean eventHandled, final String name, final ReadableMap info) {
+    if (BuildConfig.DEBUG || eventHandled) {
+      return;
+    }
+
+    throw new AssertionException(String.format("Event supported but not handled: <name: %s, info:%s>", name, info.toString()));
   }
 
   // Emit Events
