@@ -100,6 +100,14 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
     return constants;
   }
 
+  // Clean up on CatalystInstance destroyed
+  @Override
+  public void onCatalystInstanceDestroy() {
+      super.onCatalystInstanceDestroy();
+      LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(mReactContext);
+      localBroadcastManager.unregisterReceiver(mLocalBroadcastReceiver);
+  }
+
   // Receive Events
 
   /**
