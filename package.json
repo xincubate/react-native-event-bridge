@@ -26,7 +26,7 @@
     "name": "Michael Schneider",
     "email": "mischneider1@gmail.com"
   },
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
   "devDependencies": {
