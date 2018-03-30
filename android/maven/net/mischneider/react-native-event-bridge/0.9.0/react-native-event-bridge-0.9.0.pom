@@ -4,14 +4,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.mischneider</groupId>
   <artifactId>react-native-event-bridge</artifactId>
-  <version>0.7.0</version>
+  <version>0.9.0</version>
   <packaging>aar</packaging>
   <name>React Native Event Bridge</name>
   <description>Send and Receive events between React Native and native.</description>
   <url>https://github.com/maicki/react-native-event-bridge</url>
   <licenses>
     <license>
-      <name>Apache 2.0</name>
+      <name>Apache-2.0</name>
       <url>https://github.com/maicki/react-native-event-bridge/blob/master/LICENSE</url>
       <distribution>repo</distribution>
     </license>
