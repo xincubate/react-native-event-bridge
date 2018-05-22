@@ -1,4 +1,3 @@
-
 package net.mischneider;
 
 import android.app.Activity;
@@ -9,32 +8,24 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.react.ReactInstanceManager;
-import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.JavaScriptModule;
-import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.RootView;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.facebook.react.uimanager.ViewManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,15 +91,13 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
     return constants;
   }
 
-  // Clean up on CatalystInstance destroyed
+  // Receive Events
   @Override
   public void onCatalystInstanceDestroy() {
       super.onCatalystInstanceDestroy();
       LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(mReactContext);
       localBroadcastManager.unregisterReceiver(mLocalBroadcastReceiver);
   }
-
-  // Receive Events
 
   /**
    * Event received from React Native
@@ -215,28 +204,77 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
    * Example: EventBridgeModule.emitEventForActivity(this, "eventName", data);
    */
   public void emitEventForActivity(Activity activity, final String name, @Nullable WritableMap info)  {
-    // Get the root view
-    ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
-    View view = findRootView(contentView);
-    if (!(view instanceof RootView)) {
+
+    List<View> rootViews = new ArrayList<>();
+    findAllReactRootView(activity.findViewById(android.R.id.content),rootViews);
+
+    //View reactRootView = findReactRootView(activity.findViewById(android.R.id.content));
+    if (rootViews.size() == 0) {
       return;
     }
 
     // React tag is the identifier to be able to detect in ReactNativewhich component should receive
     // the event
-    final int reactTag = view.getId();
 
-    Bundle bundle = new Bundle();
-    bundle.putInt(EventBridgeModuleEventReactTagKey, reactTag);
-    bundle.putString(EventBridgeModuleEventNameKey, name);
-    if (info != null) {
-      bundle.putBundle(EventBridgeModuleEventInfoKey, Arguments.toBundle(info));
+    for (View rootView : rootViews){
+      final int reactTag = rootView.getId();
+
+      Bundle bundle = new Bundle();
+      bundle.putInt(EventBridgeModuleEventReactTagKey, reactTag);
+      bundle.putString(EventBridgeModuleEventNameKey, name);
+      if (info != null) {
+        bundle.putBundle(EventBridgeModuleEventInfoKey, Arguments.toBundle(info));
+      }
+
+      LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(activity);
+      Intent customEvent= new Intent(EventBridgeModuleIntentEventName);
+      customEvent.putExtra(EventBridgeModuleIntentEventDataKey, bundle);
+      localBroadcastManager.sendBroadcast(customEvent);
     }
 
-    LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(activity);
-    Intent customEvent= new Intent(EventBridgeModuleIntentEventName);
-    customEvent.putExtra(EventBridgeModuleIntentEventDataKey, bundle);
-    localBroadcastManager.sendBroadcast(customEvent);
+
+  }
+
+  private View findReactRootView(View view) {
+    if (view instanceof RootView) {
+      return view;
+    }
+
+    if (!(view instanceof ViewGroup)) {
+      return null;
+    }
+
+    View reactRootView = null;
+    ViewGroup viewGroup = (ViewGroup) view;
+    for (int i = 0; i < viewGroup.getChildCount(); i++) {
+      reactRootView = findReactRootView(viewGroup.getChildAt(i));
+      if (reactRootView != null) {
+        break;
+      }
+    }
+
+    return reactRootView;
+  }
+
+
+  private void findAllReactRootView(View view,List<View> rootViews) {
+    if (view instanceof RootView) {
+      rootViews.add(view);
+      return ;
+    }
+
+    if (!(view instanceof ViewGroup)) {
+      return ;
+    }
+
+    View reactRootView = null;
+    ViewGroup viewGroup = (ViewGroup) view;
+    for (int i = 0; i < viewGroup.getChildCount(); i++) {
+      findAllReactRootView(viewGroup.getChildAt(i),rootViews);
+      if (reactRootView != null) {
+        break;
+      }
+    }
   }
 
   // Helper methods
@@ -249,25 +287,6 @@ public class MSREventBridgeModule extends ReactContextBaseJavaModule implements 
             .getEventBridgeReactInstanceManager()
             .getCurrentReactContext()
             .getNativeModule(MSREventBridgeModule.class);
-  }
-
-  /**
-   * Returns the descendant of the given view which is the root of the React Native views
-   */
-  @Nullable
-  private View findRootView(ViewGroup parent) {
-    for (int i = 0; i < parent.getChildCount(); i++) {
-      View child = parent.getChildAt(i);
-      if (child instanceof RootView) {
-        return child;
-      } else if (child instanceof ViewGroup) {
-        child = findRootView((ViewGroup) child);
-        if (child != null) {
-          return child;
-        }
-      }
-    }
-    return null;
   }
 
 }
